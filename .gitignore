@@ -484,3 +484,4 @@ $RECYCLE.BIN/
 *.swp
 
 app.db
+app.db*

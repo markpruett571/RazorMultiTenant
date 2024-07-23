@@ -102,6 +102,16 @@ namespace MultiTenant.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
 
@@ -117,11 +127,13 @@ namespace MultiTenant.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var tenant = new Tenant { Name = "Default" };
+                var tenant = new Tenant { Name = Input.Email };
                 _context.Tenants.Add(tenant);
                 await _context.SaveChangesAsync();
 
                 var user = CreateUser();
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
                 user.TenantId = tenant.Id;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
