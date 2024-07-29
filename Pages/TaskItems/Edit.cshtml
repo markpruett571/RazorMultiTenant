@@ -1,0 +1,50 @@
+@page
+@model MultiTenant.Pages.Tasks.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Task</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TaskItem.Id" />
+            <div class="form-group">
+                <label asp-for="TaskItem.TenantId" class="control-label"></label>
+                <select asp-for="TaskItem.TenantId" class="form-control" asp-items="ViewBag.TenantId"></select>
+                <span asp-validation-for="TaskItem.TenantId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskItem.Title" class="control-label"></label>
+                <input asp-for="TaskItem.Title" class="form-control" />
+                <span asp-validation-for="TaskItem.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskItem.Description" class="control-label"></label>
+                <input asp-for="TaskItem.Description" class="form-control" />
+                <span asp-validation-for="TaskItem.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskItem.Status" class="control-label"></label>
+                <input asp-for="TaskItem.Status" class="form-control" />
+                <span asp-validation-for="TaskItem.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

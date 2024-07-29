@@ -12,7 +12,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>,
+    AdditionalUserClaimsPrincipalFactory>();
 
 builder.Services.AddRazorPages();
 
