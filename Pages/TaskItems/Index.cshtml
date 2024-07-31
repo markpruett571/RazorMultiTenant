@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TaskItems[0].Tenant)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TaskItems[0].Title)
             </th>
             <th>
@@ -31,9 +28,6 @@
     <tbody>
 @foreach (var item in Model.TaskItems) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tenant.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

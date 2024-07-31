@@ -36,7 +36,6 @@ namespace MultiTenant.Pages.Tasks
                 return NotFound();
             }
             TaskItem = task;
-           ViewData["TenantId"] = new SelectList(_context.Tenants, "Id", "Id");
             return Page();
         }
 

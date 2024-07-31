@@ -12,6 +12,26 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     {
     }
 
+    public override int SaveChanges()
+    {
+        foreach (var entry in ChangeTracker.Entries().Where(e => e.Entity is IHasTenantId))
+        {
+            entry.Property("TenantId").IsModified = false;
+        }
+
+        return base.SaveChanges();
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        foreach (var entry in ChangeTracker.Entries().Where(e => e.Entity is IHasTenantId))
+        {
+            entry.Property("TenantId").IsModified = false;
+        }
+
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TaskItem> TaskItems { get; set; }
 }
