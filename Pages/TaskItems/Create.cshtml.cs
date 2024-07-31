@@ -22,6 +22,15 @@ namespace MultiTenant.Pages.Tasks
 
         public IActionResult OnGet()
         {
+            ViewData["TaskItemStatuses"] = Enum.GetValues(typeof(TaskItem.TaskItemStatus))
+                                       .Cast<TaskItem.TaskItemStatus>()
+                                       .Select(v => new SelectListItem
+                                       {
+                                           Text = v.ToString(),
+                                           Value = ((int)v).ToString()
+                                       })
+                                       .ToList();
+
             return Page();
         }
 
