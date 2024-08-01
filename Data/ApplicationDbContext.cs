@@ -12,6 +12,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     {
     }
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+
+        configurationBuilder.Properties<Enum>().HaveConversion<string>();
+    }
+
     public override int SaveChanges()
     {
         foreach (var entry in ChangeTracker.Entries().Where(e => e.Entity is IHasTenantId))
